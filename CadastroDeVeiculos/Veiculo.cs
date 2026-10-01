@@ -4,7 +4,7 @@
     {
         // Atributos da classe Veiculo
         public Marcas Marca;
-        public Modelos Modelo;
+        public string Modelo { get; }
         public int Ano;
         public decimal Preco;
         public double Quilometragem;
@@ -37,9 +37,28 @@
             }
         }
 
-        public void ValorVeiculo(double quilometragem)
+        public decimal ValorVeiculo(int anoAtual, decimal preco, double quilometragem)
         {
+            int idadeVeiculo = anoAtual - Ano;
+            int kmEsperado = idadeVeiculo * 10000;
+            decimal ajuste;
 
+            if(quilometragem > kmEsperado)// Desvaloriza o Carro
+            {
+                ajuste = preco * 0.3m;
+                preco = preco - ajuste;
+                return preco;
+            }
+            else if(quilometragem < kmEsperado) // Valoriza o Carro
+            {
+                ajuste = preco * 0.1m;
+                preco = preco + ajuste;
+                return preco;
+            }
+            else
+            {
+                return preco;
+            }
         }
     }
 }
